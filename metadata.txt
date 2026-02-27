@@ -1,0 +1,31 @@
+[general]
+name=QGIS2SWMM
+qgisMinimumVersion=3.16
+qgisMaximumVersion=3.99
+description=QGIS plugin for digitizing and exporting urban drainage networks to EPA SWMM
+version=1.0.0
+author=Geogarnet
+email=
+url=https://geogarnet.com/qgis2swmm
+repository=https://github.com/cfedez/qgis2swmm
+tracker=https://github.com/cfedez/qgis2swmm/issues
+icon=resources/icon.png
+category=Analysis
+tags=SWMM,drainage,hydrology,stormwater,urban-drainage,export,hydrological-modeling
+changelog=
+  1.0.0 - Initial release
+  - Create SWMM layers (Nodes, Links, Subcatchments)
+  - Extract elevations from DEM
+  - Automatic topology detection
+  - Automatic geometry calculations
+  - Export to .inp format (EPA SWMM 5.2)
+  - Automatic ID generation
+  - Data validation
+
+homepage=https://geogarnet.com/qgis2swmm
+hasProcessingProvider=no
+server=False
+experimental=False
+deprecated=False
+
+dependencies=qgis>=3.16
