@@ -111,6 +111,14 @@ class SWMMExporter:
                 name        = self._safe_str(subcat.get('ID', 'SUB'))
                 rain_gage   = self._safe_str(subcat.get('RainGage', ''))
                 outlet      = self._safe_str(subcat.get('Outlet', ''))
+                # SWMM parses this section by tokens; a blank value collapses
+                # into whitespace and triggers "Too few items". Use the literal
+                # "*" placeholder so all 8 tokens are always present (the user
+                # replaces it in SWMM after importing).
+                if not rain_gage.strip():
+                    rain_gage = "*"
+                if not outlet.strip():
+                    outlet = "*"
                 area        = self._safe_float(subcat.get('Area', 1.0))
                 perc_imperv = self._safe_float(subcat.get('PercImperv', 0.0))
                 width       = self._safe_float(subcat.get('Width', 50.0))

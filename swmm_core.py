@@ -8,7 +8,7 @@ from typing import List, Dict, Tuple, Optional
 from qgis.core import (
     QgsProject, QgsVectorLayer, QgsRasterLayer, QgsField, QgsFeature,
     QgsGeometry, QgsPointXY, QgsWkbTypes, QgsCoordinateReferenceSystem,
-    QgsSpatialIndex, QgsRasterDataProvider
+    QgsCoordinateTransform, QgsSpatialIndex, QgsRasterDataProvider
 )
 from qgis.PyQt.QtCore import QMetaType
 import math
@@ -218,6 +218,13 @@ class SWMMCore:
         provider = dem_layer.dataProvider()
         extent   = dem_layer.extent()
 
+        # Build a transform from the nodes CRS to the DEM CRS so that the
+        # extent check and raster sampling happen in the DEM's coordinate
+        # system, even when the layers use different CRSs.
+        nodes_crs = self.nodes_layer.crs()
+        dem_crs   = dem_layer.crs()
+        transform = QgsCoordinateTransform(nodes_crs, dem_crs, QgsProject.instance())
+
         total      = 0
         successful = 0
         outside    = 0
@@ -233,15 +240,24 @@ class SWMMCore:
             point = feat.geometry().asPoint()
             x, y  = point.x(), point.y()
 
-            # Store coordinates in attributes
+            # Store coordinates in attributes (always the original geometry
+            # coordinates, in the nodes layer CRS).
             self.nodes_layer.changeAttributeValue(feat.id(), x_idx, round(x, 3))
             self.nodes_layer.changeAttributeValue(feat.id(), y_idx, round(y, 3))
 
-            if not extent.contains(QgsPointXY(x, y)):
+            # Transform the point to the DEM CRS before the extent check and
+            # raster sampling.
+            try:
+                dem_point = transform.transform(QgsPointXY(x, y))
+            except Exception:
                 outside += 1
                 continue
 
-            result, ok = provider.sample(QgsPointXY(x, y), 1)
+            if not extent.contains(dem_point):
+                outside += 1
+                continue
+
+            result, ok = provider.sample(dem_point, 1)
             if ok and result is not None:
                 self.nodes_layer.changeAttributeValue(feat.id(), elev_idx, round(result, 3))
                 successful += 1

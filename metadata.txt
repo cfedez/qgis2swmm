@@ -1,9 +1,9 @@
 [general]
 name=QGIS2SWMM
-qgisMinimumVersion=3.16
+qgisMinimumVersion=4.0
 qgisMaximumVersion=4.99
 description=QGIS plugin for digitizing and exporting urban drainage networks to EPA SWMM
-version=1.0.0
+version=1.1.0
 author=Geogarnet
 email=
 url=https://geogarnet.com/qgis2swmm
@@ -13,6 +13,11 @@ icon=resources/icon.png
 category=Analysis
 tags=SWMM,drainage,hydrology,stormwater,urban-drainage,export,hydrological-modeling
 changelog=
+  1.1.0 - QGIS 4 / Qt6 compatibility
+  - qgisMaximumVersion updated to 4.99
+  - QgsField migrated from QVariant to QMetaType.Type
+  - exec_() replaced with exec() (PyQt6)
+  - QFileDialog enums scoped for PyQt6
   1.0.0 - Initial release
   - Create SWMM layers (Nodes, Links, Subcatchments)
   - Extract elevations from DEM

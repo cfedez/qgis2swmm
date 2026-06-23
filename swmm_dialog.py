@@ -305,7 +305,7 @@ class SWMMMainDialog(QDialog):
                 self,
                 "Select Directory to Save SWMM Layers",
                 "",
-                QFileDialog.Option.ShowDirsOnly | QFileDialog.Option.DontResolveSymlinks
+                QFileDialog.Option.ShowDirsOnly | QFileDialog.Option.DontResolveSymlinks | QFileDialog.Option.DontUseNativeDialog
             )
             
             if directory:
@@ -548,8 +548,11 @@ Details:
     def on_export_inp(self):
         """Exports data to .inp file."""
         try:
+            # Start the save dialog in the previously selected output
+            # directory when available, otherwise let Qt pick the default.
+            initial_dir = self.output_directory if self.output_directory else ""
             filepath, _ = QFileDialog.getSaveFileName(
-                self, "Save SWMM File", "", "SWMM Files (*.inp);;All Files (*.*)"
+                self, "Save SWMM File", initial_dir, "SWMM Files (*.inp);;All Files (*.*)"
             )
             if not filepath:
                 return
