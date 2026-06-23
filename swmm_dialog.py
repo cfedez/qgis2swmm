@@ -305,7 +305,7 @@ class SWMMMainDialog(QDialog):
                 self,
                 "Select Directory to Save SWMM Layers",
                 "",
-                QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks
+                QFileDialog.Option.ShowDirsOnly | QFileDialog.Option.DontResolveSymlinks
             )
             
             if directory:

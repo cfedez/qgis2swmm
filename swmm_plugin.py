@@ -75,7 +75,7 @@ class SWMMPlugin:
                 self.dialog = SWMMMainDialog(self.iface)
 
             self.dialog.show()
-            result = self.dialog.exec_()
+            result = self.dialog.exec()
             return result
         except Exception as e:
             QMessageBox.critical(

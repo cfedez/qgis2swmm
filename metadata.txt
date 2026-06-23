@@ -1,7 +1,7 @@
 [general]
 name=QGIS2SWMM
 qgisMinimumVersion=3.16
-qgisMaximumVersion=3.99
+qgisMaximumVersion=4.99
 description=QGIS plugin for digitizing and exporting urban drainage networks to EPA SWMM
 version=1.0.0
 author=Geogarnet

@@ -10,7 +10,7 @@ from qgis.core import (
     QgsGeometry, QgsPointXY, QgsWkbTypes, QgsCoordinateReferenceSystem,
     QgsSpatialIndex, QgsRasterDataProvider
 )
-from qgis.PyQt.QtCore import QVariant
+from qgis.PyQt.QtCore import QMetaType
 import math
 
 
@@ -85,11 +85,11 @@ class SWMMCore:
         nodes_path = os.path.join(output_directory, "SWMM_Nodes.gpkg")
         nodes_layer = QgsVectorLayer(f"Point?crs={crs_str}", self.NODES_LAYER_NAME, "memory")
         nodes_fields = [
-            QgsField("ID",         QVariant.String, len=20),
-            QgsField("InvertElev", QVariant.Double),
-            QgsField("MaxDepth",   QVariant.Double),
-            QgsField("X",          QVariant.Double),
-            QgsField("Y",          QVariant.Double),
+            QgsField("ID",         QMetaType.Type.QString),
+            QgsField("InvertElev", QMetaType.Type.Double),
+            QgsField("MaxDepth",   QMetaType.Type.Double),
+            QgsField("X",          QMetaType.Type.Double),
+            QgsField("Y",          QMetaType.Type.Double),
         ]
         nodes_layer.dataProvider().addAttributes(nodes_fields)
         nodes_layer.updateFields()
@@ -100,13 +100,13 @@ class SWMMCore:
         links_path = os.path.join(output_directory, "SWMM_Links.gpkg")
         links_layer = QgsVectorLayer(f"LineString?crs={crs_str}", self.LINKS_LAYER_NAME, "memory")
         links_fields = [
-            QgsField("ID",         QVariant.String, len=20),
-            QgsField("InletNode",  QVariant.String, len=20),
-            QgsField("OutletNode", QVariant.String, len=20),
-            QgsField("Length",     QVariant.Double),
-            QgsField("ManningN",   QVariant.Double),
-            QgsField("InOffset",   QVariant.Double),
-            QgsField("OutOffset",  QVariant.Double),
+            QgsField("ID",         QMetaType.Type.QString),
+            QgsField("InletNode",  QMetaType.Type.QString),
+            QgsField("OutletNode", QMetaType.Type.QString),
+            QgsField("Length",     QMetaType.Type.Double),
+            QgsField("ManningN",   QMetaType.Type.Double),
+            QgsField("InOffset",   QMetaType.Type.Double),
+            QgsField("OutOffset",  QMetaType.Type.Double),
         ]
         links_layer.dataProvider().addAttributes(links_fields)
         links_layer.updateFields()
@@ -117,13 +117,13 @@ class SWMMCore:
         subcat_path = os.path.join(output_directory, "SWMM_Subcatchments.gpkg")
         subcat_layer = QgsVectorLayer(f"Polygon?crs={crs_str}", self.SUBCATCHMENTS_LAYER_NAME, "memory")
         subcat_fields = [
-            QgsField("ID",         QVariant.String, len=20),
-            QgsField("RainGage",   QVariant.String, len=20),
-            QgsField("Outlet",     QVariant.String, len=20),
-            QgsField("Area",       QVariant.Double),
-            QgsField("PercImperv", QVariant.Double),
-            QgsField("Width",      QVariant.Double),
-            QgsField("Slope",      QVariant.Double),
+            QgsField("ID",         QMetaType.Type.QString),
+            QgsField("RainGage",   QMetaType.Type.QString),
+            QgsField("Outlet",     QMetaType.Type.QString),
+            QgsField("Area",       QMetaType.Type.Double),
+            QgsField("PercImperv", QMetaType.Type.Double),
+            QgsField("Width",      QMetaType.Type.Double),
+            QgsField("Slope",      QMetaType.Type.Double),
         ]
         subcat_layer.dataProvider().addAttributes(subcat_fields)
         subcat_layer.updateFields()
