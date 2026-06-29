@@ -3,6 +3,11 @@ name=QGIS2SWMM
 qgisMinimumVersion=4.0
 qgisMaximumVersion=4.99
 description=QGIS plugin for digitizing and exporting urban drainage networks to EPA SWMM
+about=QGIS2SWMM digitizes nodes, conduits and subcatchments directly in QGIS,
+    extracts invert elevations from DEM, detects network topology automatically,
+    calculates subcatchment geometry (area, slope, width) and exports to EPA SWMM 5.2
+    .inp format with sections JUNCTIONS, CONDUITS, XSECTIONS, SUBCATCHMENTS,
+    COORDINATES and POLYGONS. Compatible with QGIS 4 / Qt6.
 version=1.1.0
 author=Geogarnet
 email=cfernandez@geogarnet.com
@@ -32,5 +37,3 @@ hasProcessingProvider=no
 server=False
 experimental=False
 deprecated=False
-
-dependencies=qgis>=3.16
