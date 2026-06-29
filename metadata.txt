@@ -28,5 +28,3 @@ hasProcessingProvider=no
 server=False
 experimental=False
 deprecated=False
-
-dependencies=qgis>=3.16
